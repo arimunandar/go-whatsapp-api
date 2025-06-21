@@ -76,6 +76,9 @@ func restServer(_ *cobra.Command, _ []string) {
 
 		app.Use(basicauth.New(basicauth.Config{
 			Users: account,
+			Next: func(c *fiber.Ctx) bool {
+				return strings.HasPrefix(c.Path(), "/statics")
+			},
 		}))
 	}
 
