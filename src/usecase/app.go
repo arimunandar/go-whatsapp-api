@@ -98,12 +98,6 @@ func (service serviceApp) LoginWithCode(ctx context.Context, phoneNumber string)
 		return loginCode, err
 	}
 
-	// detect is already logged in
-	if service.WaCli.Store.ID != nil {
-		logrus.Warn("User is already logged in")
-		return loginCode, pkgError.ErrAlreadyLoggedIn
-	}
-
 	// reconnect first
 	_ = service.Reconnect(ctx)
 
